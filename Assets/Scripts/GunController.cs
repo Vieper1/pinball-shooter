@@ -10,6 +10,7 @@ public class GunController : MonoBehaviour
 	[Header("Config")]
 	public float ProjectileForceMultiplier = 1.0f;
 	public float InactiveDelay = 1.0f;
+	public float SpawnOffset = 1.0f;
     
 
 
@@ -70,9 +71,9 @@ public class GunController : MonoBehaviour
 	{
 		GameObject projectile = Instantiate(prefab_Projectile);
 		projectile.transform.rotation = transform.rotation;
-		projectile.transform.position = transform.position;
+		projectile.transform.position = transform.position + transform.up * SpawnOffset;
 		Rigidbody2D rb2d = projectile.GetComponent<Rigidbody2D>();
-		rb2d.AddForce(projectile.transform.forward * ProjectileForceMultiplier, ForceMode2D.Impulse);
+		rb2d.AddForce(projectile.transform.up * ProjectileForceMultiplier, ForceMode2D.Impulse);
 		inactiveTime = InactiveDelay;
 	}
 }
