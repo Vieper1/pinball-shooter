@@ -6,9 +6,11 @@ public class GunController : MonoBehaviour
 {
     [Header("References")]
     public GameObject prefab_Projectile;
+	public GameObject GunSprite;
 
 	[Header("Config")]
 	public float ProjectileForceMultiplier = 1.0f;
+	public float ProjectileScaleMultiplier = 1.0f;
 	public float InactiveDelay = 1.0f;
 	public float SpawnOffset = 1.0f;
     
@@ -20,16 +22,24 @@ public class GunController : MonoBehaviour
 
 	// Inactivity
 	private float inactiveTime = -1.0f;
+	private SpriteRenderer gunSprite;
 
     void Start()
     {
-        
+		gunSprite = GunSprite.GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
 		if (inactiveTime > 0)
+		{
 			inactiveTime -= Time.deltaTime;
+		}
+		else
+		{
+			SetGunActiveIndicator(true);	// Optimmize
+		}
+
 
 		if (IsSelfClicked() && inactiveTime < 0)
 		{
@@ -51,6 +61,7 @@ public class GunController : MonoBehaviour
 			if (Input.GetMouseButtonUp(0) && isDragging)
 			{
 				isDragging = false;
+				SetGunActiveIndicator(false);
 				ShootProjectile();
 			}
 		}
@@ -72,8 +83,16 @@ public class GunController : MonoBehaviour
 		GameObject projectile = Instantiate(prefab_Projectile);
 		projectile.transform.rotation = transform.rotation;
 		projectile.transform.position = transform.position + transform.up * SpawnOffset;
+		projectile.transform.localScale = projectile.transform.localScale * ProjectileScaleMultiplier;
 		Rigidbody2D rb2d = projectile.GetComponent<Rigidbody2D>();
 		rb2d.AddForce(projectile.transform.up * ProjectileForceMultiplier, ForceMode2D.Impulse);
 		inactiveTime = InactiveDelay;
+	}
+
+	void SetGunActiveIndicator(bool value)
+	{
+		Color color = gunSprite.color;
+		color.a = value ? 1f : 0.6f;
+		gunSprite.color = color;
 	}
 }
