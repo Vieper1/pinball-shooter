@@ -169,7 +169,6 @@ MonoBehaviour:
   prefab_Projectile: {fileID: 2881396390793293536, guid: e9e59502d281fab4893f2d54ce312fdc,
     type: 3}
   GunSprite: {fileID: 892558614}
-  ProjectileForceMultiplier: 3
   ProjectileScaleMultiplier: 0.8
   InactiveDelay: 1
   SpawnOffset: 1
@@ -364,8 +363,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a802a31f8b1ee254e8f7b95d783b0c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet_LifeTime: 1
-  Slowmotion_Factor: 0.5
+  Bullet_LifeTime: 2
+  Bullet_ForceMultiplier: 60
+  Slowmotion_Factor: 0.05
 --- !u!1 &892558614
 GameObject:
   m_ObjectHideFlags: 0

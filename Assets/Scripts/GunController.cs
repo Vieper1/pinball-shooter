@@ -9,7 +9,6 @@ public class GunController : MonoBehaviour
 	public GameObject GunSprite;
 
 	[Header("Config")]
-	public float ProjectileForceMultiplier = 1.0f;
 	public float ProjectileScaleMultiplier = 1.0f;
 	public float InactiveDelay = 1.0f;
 	public float SpawnOffset = 1.0f;
@@ -94,7 +93,7 @@ public class GunController : MonoBehaviour
 		projectile.transform.position = transform.position + transform.up * SpawnOffset;
 		projectile.transform.localScale = projectile.transform.localScale * ProjectileScaleMultiplier;
 		Rigidbody2D rb2d = projectile.GetComponent<Rigidbody2D>();
-		rb2d.AddForce(projectile.transform.up * ProjectileForceMultiplier, ForceMode2D.Impulse);
+		rb2d.AddForce(projectile.transform.up * GameConfig.BULLET_FORCE_MULTIPLIER, ForceMode2D.Impulse);
 		inactiveTime = InactiveDelay;
 	}
 
