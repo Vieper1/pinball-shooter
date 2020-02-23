@@ -32,41 +32,50 @@ public class GunController : MonoBehaviour
     void Update()
     {
 		if (inactiveTime > 0)
-		{
 			inactiveTime -= Time.deltaTime;
-		}
 		else
-		{
 			SetGunActiveIndicator(true);	// Optimmize
-		}
 
 
-		if (IsSelfClicked() && inactiveTime < 0)
+
+		if (IsSelfClicked() && inactiveTime < 0 && Input.GetMouseButtonDown(0))    // Drag Start
 		{
-			if (Input.GetMouseButtonDown(0))
-			{
-				isDragging = true;
-				dragStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			}
+			isDragging = true;
+			dragStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			SetSlowMotion(true);
 		}
+
 
 		if (isDragging)
 		{
-			if (Input.GetMouseButton(0))
+			if (Input.GetMouseButton(0))	// Drag Hold
 			{
 				Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 				transform.rotation = Quaternion.FromToRotation(Vector3.up, mousePosition - dragStart);
 			}
 
-			if (Input.GetMouseButtonUp(0) && isDragging)
+			if (Input.GetMouseButtonUp(0) && isDragging)	// Drag End
 			{
 				isDragging = false;
 				SetGunActiveIndicator(false);
+				SetSlowMotion(false);
 				ShootProjectile();
 			}
 		}
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+	////////////////////////////////////////////////////////////////////// Utility
 	bool IsSelfClicked()
 	{
 		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -94,5 +103,18 @@ public class GunController : MonoBehaviour
 		Color color = gunSprite.color;
 		color.a = value ? 1f : 0.6f;
 		gunSprite.color = color;
+	}
+
+	void SetSlowMotion(bool value)
+	{
+		if (value)
+		{
+			Time.timeScale = GameConfig.SLOWMOTION_FACTOR;
+			Time.fixedDeltaTime = Time.timeScale * 0.02f;
+		}
+		else
+		{
+			Time.timeScale = 1.0f;
+		}
 	}
 }
