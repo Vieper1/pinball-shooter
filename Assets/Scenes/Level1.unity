@@ -493,7 +493,7 @@ MonoBehaviour:
   Respawn_Delay: 1
   Score_Bumper: 5
   Score_Wall: 1
-  Score_Bullet: 1
+  Score_Bullet: 3
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0

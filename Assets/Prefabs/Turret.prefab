@@ -129,9 +129,8 @@ MonoBehaviour:
   prefab_Projectile: {fileID: 2881396390793293536, guid: e9e59502d281fab4893f2d54ce312fdc,
     type: 3}
   GunSprite: {fileID: 4969850404473768825}
-  ProjectileScaleMultiplier: 0.8
   InactiveDelay: 1
-  SpawnOffset: 1
+  SpawnOffset: 1.25
 --- !u!58 &4969850404985150779
 CircleCollider2D:
   m_ObjectHideFlags: 0
