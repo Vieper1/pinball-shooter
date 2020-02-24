@@ -27,6 +27,8 @@ public class ResetBox : MonoBehaviour
 	IEnumerator RespawnBallInSeconds()
 	{
 		Ball.transform.position = new Vector3(9999f, 9999f);
+		GameController.instance.LoseLifePoint();
+
 		yield return new WaitForSeconds(GameConfig.RESPAWN_DELAY);
 		Ball.transform.position = resetPosition;
 		ballRb2d.velocity = Vector3.zero;
