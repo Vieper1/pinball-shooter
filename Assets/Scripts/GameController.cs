@@ -24,8 +24,10 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-		ScoreText.text = score.ToString();
-		LivesText.text = lives.ToString();
+		if (ScoreText)
+			ScoreText.text = score.ToString();
+		if (LivesText)
+			LivesText.text = lives.ToString();
     }
 
 
@@ -36,7 +38,12 @@ public class GameController : MonoBehaviour
 		lives--;
 		if (lives <= 0)
 		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			int highscore = PlayerPrefs.GetInt("highscore", 0);
+			if (score > highscore)
+			{
+				PlayerPrefs.SetInt("highscore", score);
+			}
+			SceneManager.LoadScene("MainMenu");
 		}
 	}
 
